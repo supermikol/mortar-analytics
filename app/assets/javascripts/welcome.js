@@ -40,14 +40,26 @@
 
 
 
+  // var json_data = [
+  //   {
+  //     "key" : "Revenues" ,
+  //     "values" : [ [1420099200000, 821.64], [1420185600000, 442.75], [1420272000000, 31.61], [1420358400000, 281.51], [new Date("01/05/15").getTime(), 187.31], [new Date("01/06/15").getTime(), 349.63], [new Date("01/07/15").getTime(), 98.86], [new Date("01/08/15").getTime(), 177.65], [new Date("01/09/15").getTime(), 125.11] ]
+  //   },
+  //   {
+  //     "key" : "Expenses" ,
+  //     "values": [ [new Date("01/01/15").getTime(), 230.12], [new Date("01/02/15").getTime(), 192.97], [new Date("01/03/15").getTime(), 17.74], [new Date("01/04/15").getTime(), 81.95], [new Date("01/05/15").getTime(), 41.67], [new Date("01/06/15").getTime(), 142.51], [new Date("01/07/15").getTime(), 16.27], [new Date("01/08/15").getTime(), 45.34], [new Date("01/09/15").getTime(), 32.80] ]
+  //   }
+  //   ]
+
+
   var json_data = [
-    {
-      "key" : "Revenues" ,
-      "values" : [ [1420099200000, 821.64], [1420185600000, 442.75], [1420272000000, 31.61], [1420358400000, 281.51], [new Date("01/05/15").getTime(), 187.31], [new Date("01/06/15").getTime(), 349.63], [new Date("01/07/15").getTime(), 98.86], [new Date("01/08/15").getTime(), 177.65], [new Date("01/09/15").getTime(), 125.11] ]
-    },
     {
       "key" : "Expenses" ,
       "values": [ [new Date("01/01/15").getTime(), 230.12], [new Date("01/02/15").getTime(), 192.97], [new Date("01/03/15").getTime(), 17.74], [new Date("01/04/15").getTime(), 81.95], [new Date("01/05/15").getTime(), 41.67], [new Date("01/06/15").getTime(), 142.51], [new Date("01/07/15").getTime(), 16.27], [new Date("01/08/15").getTime(), 45.34], [new Date("01/09/15").getTime(), 32.80] ]
+    },
+    {
+      "key" : "Profits" ,
+      "values" : [ [1420099200000, 821.64], [1420185600000, 442.75], [1420272000000, 31.61], [1420358400000, 281.51], [new Date("01/05/15").getTime(), 187.31], [new Date("01/06/15").getTime(), 349.63], [new Date("01/07/15").getTime(), 98.86], [new Date("01/08/15").getTime(), 177.65], [new Date("01/09/15").getTime(), 125.11] ]
     }
     ]
 

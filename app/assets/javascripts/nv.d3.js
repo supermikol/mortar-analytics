@@ -12776,6 +12776,13 @@ nv.models.stackedAreaChart = function() {
                             stackedValue: point.display
                         });
                     });
+                //Add in revenues tooltip
+                allData.push({
+                    key: "Revenues",
+                    value: allData[0].value + allData[1].value,
+                    color: "green",
+                    stackedValue: 0
+                });
 
                 allData.reverse();
 
@@ -12817,7 +12824,6 @@ nv.models.stackedAreaChart = function() {
                         oldValueFormatter = null;
                     }
                 }
-
                 interactiveLayer.tooltip
                     .position({left: pointXLocation + margin.left, top: e.mouseY + margin.top})
                     .chartContainer(that.parentNode)
