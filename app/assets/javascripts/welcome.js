@@ -62,6 +62,8 @@ var json_data = [
 
     nv.utils.windowResize(chart.update);
 
+    chart.legend.margin({top: 20, bottom: 20})
+
     return chart;
   });
 // })
