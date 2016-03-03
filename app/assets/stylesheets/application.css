@@ -529,7 +529,7 @@ body {
   background-color: rgba(0, 0, 0, 0.1);
 }
 .highlight {
-  background-color: #1a1c22;
+/*  background-color: #1a1c22;*/
   border: 0;
 }
 .highlight pre code {
