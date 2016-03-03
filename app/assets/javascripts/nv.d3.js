@@ -12777,12 +12777,15 @@ nv.models.stackedAreaChart = function() {
                         });
                     });
                 //Add in revenues tooltip
-                allData.push({
-                    key: "Revenues",
-                    value: allData[0].value + allData[1].value,
-                    color: "green",
-                    stackedValue: 0
-                });
+                if (allData[0] && allData[1]) {
+                    allData.push({
+                        key: "Revenues",
+                        value: allData[0].value + allData[1].value,
+                        color: "green",
+                        stackedValue: 0
+                    });
+                };
+
 
                 allData.reverse();
 
