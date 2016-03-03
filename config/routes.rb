@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   get 'history/index' => 'pages#history'
-
+  get 'modal' => 'pages#modal'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
