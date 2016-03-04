@@ -8,7 +8,9 @@
 
   <div class="btn-toolbar dashhead-toolbar">
     <div class="btn-toolbar-item input-with-icon">
-      <input type="text" value="01/01/15 - 01/08/15" class="form-control" data-provide="datepicker">
+      <input type="text" value="01/01/2016" class="form-control datepicker-begin" data-provide="datepicker">
+      <span class="input-group-addon">to</span>
+      <input type="text" value="01/08/2016" class="form-control datepicker-end" data-provide="datepicker">
       <span class="icon icon-calendar"></span>
     </div>
   </div>
@@ -51,7 +53,9 @@
 
 <div class="table-full">
   <div class="table-responsive" id="history-table-container">
-    <%= render 'table', layout: false, records: @records %>
+
+          <%= render partial: 'table', layout: false, locals: {records: @records} %>
+
   </div>
 </div>
 
@@ -76,7 +80,7 @@
 </div>
 
 <!-- Button trigger modal -->
-<button type="button" href="/modal" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-invoice="sample_invoice.jpg" data-target="#myModal">
   Test
 </button>
 
