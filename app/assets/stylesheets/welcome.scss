@@ -5,3 +5,52 @@
 .iconav-brand {
   background-color: #EEE;
 }
+
+
+#invoice-column {
+  min-width: 90px;
+}
+
+#type-column {
+  min-width: 50px;
+}
+
+#description-column {
+  min-width: 200px;
+}
+
+#date-column {
+  min-width: 100px;
+}
+
+#vendor-column {
+  min-width: 125px;
+}
+
+#country-column {
+  min-width: 90px;
+}
+
+#expense-type-column {
+  min-width: 90px;
+}
+
+#total-column {
+  min-width: 75px;
+}
+
+.input-group .input-group-addon {
+  display: inline-block;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.date-search input {
+  max-width: 100px;
+}
+
+.date-search {
+  display: inline-block;
+  min-width: 400px;
+}
+
