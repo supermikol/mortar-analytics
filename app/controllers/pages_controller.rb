@@ -1,6 +1,12 @@
 class PagesController < ApplicationController
   def index
+    if request.xhr?
+      render 'index', layout: false
+    else
+      render 'index'
+    end
   end
+
 
   def history
     @revenues = Revenue.all
