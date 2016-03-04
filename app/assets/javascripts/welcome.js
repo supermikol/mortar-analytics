@@ -30,25 +30,28 @@ $(document).ready(function(){
   historyModalListener();
   historyListener();
 
-
   date = new Date();
   $('.datepicker-begin').datepicker({
     format: "yyyy-mm-dd",
     autoclose: true,
     language: 'zh-CN',
-    endDate: date,
     todayHighlight: true
   });
-
   $('.datepicker-end').datepicker({
     format: "yyyy-mm-dd",
     autoclose: true,
     language: 'zh-CN',
-    endDate: date,
     todayHighlight: true
   });
 
-  $('.datepicker-end').datepicker('update', date );
+  var today = new Date();
+  var dateBegin = new Date(today.getTime()-1000*60*60*24*7);
+  var dateEnd = today;
+  $('.datepicker-end').datepicker('setDate', dateEnd);
+  $('.datepicker-end').datepicker('update');
+
+  // $('.datepicker-begin').datepicker('setDate', dateBegin);
+  // $('.datepicker-begin').datepicker('update');
 
 
 
