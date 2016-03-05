@@ -1,42 +1,40 @@
-<div class="container">
   <div class="dashhead">
    <div class="dashhead-titles">
     <h6 class="dashhead-subtitle">Dashboards</h6>
-    <h2 class="dashhead-title">Transaction Details</h2>
-  </div>
+    <h2 class="dashhead-title">交易资料</h2>
+   </div>
 
 
   <div class="btn-toolbar dashhead-toolbar">
     <div class="btn-toolbar-item input-with-icon">
-      <input type="text" value="01/01/15 - 01/08/15" class="form-control" data-provide="datepicker">
-      <span class="icon icon-calendar"></span>
+      <div class="input-group input-daterange date-search">
+          <input type="text" class="form-control" id="datepicker-begin" data-provide="datepicker">
+          <span class="input-group-addon form-control">至</span>
+          <input type="text" class="form-control" id="datepicker-end" data-provide="datepicker">
+          <button type="submit" class="btn btn-default">更新</button>
+      </div>
     </div>
   </div>
 </div>
 
 
+
 <div class="hr-divider">
   <ul class="nav nav-pills hr-divider-content hr-divider-nav">
     <li class="active">
-      <a href="#all">All</a>
+      <a href="#all">全部</a>
     </li>
     <li>
-      <a href="#revenue">Revenue</a>
+      <a href="#revenue">收入</a>
     </li>
     <li>
-      <a href="#expense">Expenses</a>
+      <a href="#expense">开支</a>
     </li>
   </ul>
 </div>
 
 
 <div class="flextable table-actions">
-  <div class="flextable-item flextable-primary">
-    <div class="btn-toolbar-item input-with-icon">
-      <input type="text" class="form-control input-block" placeholder="Search orders">
-      <span class="icon icon-magnifying-glass"></span>
-    </div>
-  </div>
   <div class="flextable-item">
     <div class="btn-group">
       <button type="button" class="btn btn-primary-outline">
@@ -51,7 +49,7 @@
 
 <div class="table-full">
   <div class="table-responsive" id="history-table-container">
-    <%= render 'table', layout: false, records: @records %>
+    <%= render partial: 'table', layout: false, locals: {records: @records} %>
   </div>
 </div>
 
@@ -76,7 +74,7 @@
 </div>
 
 <!-- Button trigger modal -->
-<button type="button" href="/modal" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-invoice="sample_invoice.jpg" data-target="#myModal">
   Test
 </button>
 

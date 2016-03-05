@@ -1,11 +1,17 @@
 class PagesController < ApplicationController
   def index
+    if request.xhr?
+      render 'index', layout: false
+    else
+      render 'index'
+    end
   end
 
+
   def history
-    @records = Revenue.all + Expense.all
     @revenues = Revenue.all
     @expenses = Expense.all
+    @records = @revenues + @expenses
     if request.xhr?
       if params[:type] == "#revenue"
         render partial: 'table', layout: false, locals: {records: @revenues}
