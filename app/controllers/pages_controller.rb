@@ -23,8 +23,10 @@ class PagesController < ApplicationController
         render partial: 'table', layout: false, locals: {records: @revenues}
       elsif params[:type] == "#expense"
         render partial: 'table', layout: false, locals: {records: @expenses}
-      else
+      elsif params[:type] == "#all"
         render partial: 'table', layout: false, locals: {records: @records}
+      else
+        render 'history', layout: false
       end
     end
 

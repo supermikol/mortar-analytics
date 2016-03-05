@@ -22,20 +22,24 @@ var json_data = [
   }
 ]
 
-
-
 var beginDate;
 var endDate;
+var today = new Date();
+var dateBegin = new Date(today.getTime()-1000*60*60*24*7);
+var dateEnd = today;
 
 $(document).ready(function(){
+  addGraph();
+  initializeDatepicker();
   addEntryListener();
   datePickerListener();
-  // navBarListener();
+  navBarListener();
   historyModalListener();
   historyListener();
+});
 
-
-  date = new Date();
+var initializeDatepicker = function(){
+  var date = new Date();
   $('#datepicker-begin').datepicker({
     format: "yyyy-mm-dd",
     autoclose: true,
@@ -48,21 +52,13 @@ $(document).ready(function(){
     language: 'zh-CN',
     todayHighlight: true
   });
-
-
-
-  var today = new Date();
-  var dateBegin = new Date(today.getTime()-1000*60*60*24*7);
-  var dateEnd = today;
   $('#datepicker-end').datepicker('setDate', dateEnd);
   $('#datepicker-end').datepicker('update');
-
-  // $('#datepicker-begin').datepicker('setDate', dateBegin);
-  // $('#datepicker-begin').datepicker('update');
+}
 
 
+var addGraph = function(){
   d3.selectAll("svg > *").remove();
-
   nv.addGraph(function() {
     var chart = nv.models.stackedAreaChart()
     .margin({right: 100})
@@ -92,42 +88,43 @@ $(document).ready(function(){
 
     return chart;
   });
-
-});
+}
 
 var navBarListener = function(){
-  $('.iconav-nav').on('click', 'a', function(e){
+  $('a.navbar-icons').on('click', function(e){
     e.preventDefault();
     var url = $(e.target).attr('href');
     $.ajax({
       method: 'GET',
       url: url
     }).done(function(response){
-      $('.container').html(response);
+        $('.container').html(response);
+      $('#historyTable').tablesorter({sortList: [[1,1]] });
+      addGraph();
+      initializeDatepicker();
     })
+    $(this).parent().addClass("active");
+    $(this).parent().siblings().removeClass("active");
   })
 }
 
 var historyModalListener = function(){
-  // $('tbody').on('click', 'a', function(e){
-    // e.preventDefault();
 
-    $('#myModal').on('show.bs.modal', function(event){
-      var link = $(event.relatedTarget);
-      var img_name = link.data('invoice');
+  $('#myModal').on('show.bs.modal', function(event){
+    var link = $(event.relatedTarget);
+    var img_name = link.data('invoice');
 
-      var modal = $(this);
-      modal.find('.modal-body').html("<img class=\"img-responsive\" src=\"/images/" + img_name + "\" >");
-    })
+    var modal = $(this);
+    modal.find('.modal-body').html("<img class=\"img-responsive\" src=\"/images/" + img_name + "\" >");
+  })
 
-  // })
 };
 
 
 
 var historyListener = function(){
-  $('#historyTable').tablesorter({sortList: [[2,1]] });
-  $('.nav-pills').on('click', 'a', function(e){
+  $('#historyTable').tablesorter({sortList: [[1,1]] });
+  $('.table-tabs').on('click', 'a', function(e){
     // e.preventDefault();
     var tag = $(this).attr('href');
     $.ajax({
@@ -136,7 +133,7 @@ var historyListener = function(){
       data: { "type": tag, "begin_date": beginDate, "end_date": endDate }
     }).done(function(response){
       $('#history-table-container').html(response);
-      $('#historyTable').tablesorter({sortList: [[2,1]] });
+      $('#historyTable').tablesorter({sortList: [[1,1]] });
       $(e.target).parent().siblings().removeClass("active");
       $(e.target).parent().addClass("active");
     })
@@ -149,8 +146,6 @@ var historyListener = function(){
 var datePickerListener = function(){
  $('#submit-datepicker').on('click',function(e){
   if ($("#datepicker-end").val() >= $("#datepicker-begin").val()) {
-    console.log(beginDate);
-    console.log(endDate);
     beginDate = $("#datepicker-begin").val();
     endDate = $("#datepicker-end").val();
     $.ajax({
@@ -159,7 +154,7 @@ var datePickerListener = function(){
       data: { "begin_date": beginDate, "end_date": endDate }
     }).done(function(response){
       $('#history-table-container').html(response);
-      $('#historyTable').tablesorter({sortList: [[2,1]] });
+      $('#historyTable').tablesorter({sortList: [[1,1]] });
       $('.table-tabs').children().removeClass("active");
       $('#all-tab').addClass("active");
     })
