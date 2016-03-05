@@ -37,9 +37,28 @@ $.ajax({
     "values": []
   }
 
-  for (var i = 0; i < data[0].length; i++) {
-
+  var expenseDataHash = {
+    "key": "Expenses",
+    "values": []
   }
+
+  for (var i = 0; i < expenseData.length; i++) {
+    if (i === 0 ) {
+      expenseDataHash.values.push([new Date(expenseData[0].date).getTime(), expenseData[0].sum])
+    } else {
+      expenseDataHash.values.push([new Date(expenseData[i].date).getTime(), expenseDataHash.values[i-1][1] + expenseData[i].sum])
+    }
+  }
+
+  // for (var i = 0; i < revenueData.length; i++){
+  //   if (i === 0) {
+  //     profitDataHash.values.push([new Date(revenueData[0].date).getTime(), ])
+  //   } else {
+
+  //   }
+  // }
+
+  console.log(expenseDataHash);
   console.log(profitDataHash);
 
 })

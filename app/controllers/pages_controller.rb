@@ -30,9 +30,10 @@ class PagesController < ApplicationController
 
   end
 
+  # Sums up revenues and expenses by date
   def stacked_chart
-    revenues = Revenue.select("date", "total")
-    expenses = Expense.select("date", "total")
+    revenues = Revenue.select("date", "SUM(total)").group("date")
+    expenses = Expense.select("date", "SUM(total)").group("date")
     @data = [revenues, expenses]
     render json: @data
   end
