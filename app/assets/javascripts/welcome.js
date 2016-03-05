@@ -151,7 +151,7 @@ var datePickerListener = function(){
     $.ajax({
       method: 'get',
       url: '/history/index',
-      data: { "begin_date": beginDate, "end_date": endDate }
+      data: { "begin_date": beginDate, "end_date": endDate, "type": "datepicker" }
     }).done(function(response){
       $('#history-table-container').html(response);
       $('#historyTable').tablesorter({sortList: [[1,1]] });

@@ -25,6 +25,8 @@ class PagesController < ApplicationController
         render partial: 'table', layout: false, locals: {records: @expenses}
       elsif params[:type] == "#all"
         render partial: 'table', layout: false, locals: {records: @records}
+      elsif params[:type] == "datepicker"
+        render partial: 'table', layout: false, locals: {records: @records}
       else
         render 'history', layout: false
       end
