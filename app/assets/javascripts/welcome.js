@@ -114,10 +114,10 @@ var displayStackedChart = function(){
     }
 
     var chart_data = [expenseDataHash, profitDataHash];
-    console.log(chart_data);
 
     d3.selectAll("svg > *").remove();
 
+    // Display stacked area chart
     nv.addGraph(function() {
       var chart = nv.models.stackedAreaChart()
         .margin({right: 100})
