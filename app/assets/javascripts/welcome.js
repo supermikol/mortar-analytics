@@ -53,11 +53,16 @@ $.ajax({
 
 
 
+var beginDate;
+var endDate;
+
 $(document).ready(function(){
 
+  datePickerListener();
   // navBarListener();
   historyModalListener();
   historyListener();
+
 
   date = new Date();
   $('#datepicker-begin').datepicker({
@@ -83,19 +88,17 @@ $(document).ready(function(){
   // $('#datepicker-begin').datepicker('update');
 
 
-
-
   d3.selectAll("svg > *").remove();
 
   nv.addGraph(function() {
     var chart = nv.models.stackedAreaChart()
       .margin({right: 100})
-                    .x(function(d) { return d[0] })   //We can modify the data accessor functions...
-                    .y(function(d) { return d[1] })   //...in case your data is formatted differently.
-                    .useInteractiveGuideline(true)    //Tooltips which show all data points. Very nice!
-                    .rightAlignYAxis(true)      //Let's move the y-axis to the right side.
-                    .showControls(true)       //Allow user to choose 'Stacked', 'Stream', 'Expanded' mode.
-                    .clipEdge(true);
+          .x(function(d) { return d[0] })   //We can modify the data accessor functions...
+          .y(function(d) { return d[1] })   //...in case your data is formatted differently.
+          .useInteractiveGuideline(true)    //Tooltips which show all data points. Very nice!
+          .rightAlignYAxis(true)      //Let's move the y-axis to the right side.
+          .showControls(true)       //Allow user to choose 'Stacked', 'Stream', 'Expanded' mode.
+          .clipEdge(true);
 
       //Format x-axis labels with custom function.
       chart.xAxis
@@ -150,17 +153,17 @@ var historyModalListener = function(){
 
 
 var historyListener = function(){
-  $('#historyTable').tablesorter();
+  $('#historyTable').tablesorter({sortList: [[2,1]] });
   $('.nav-pills').on('click', 'a', function(e){
     // e.preventDefault();
     var tag = $(this).attr('href');
     $.ajax({
       method: 'get',
       url: '/history/index',
-      data: { "type": tag }
+      data: { "type": tag, "begin_date": beginDate, "end_date": endDate }
     }).done(function(response){
       $('#history-table-container').html(response);
-      $('#historyTable').tablesorter();
+      $('#historyTable').tablesorter({sortList: [[2,1]] });
       $(e.target).parent().siblings().removeClass("active");
       $(e.target).parent().addClass("active");
     })
@@ -169,3 +172,27 @@ var historyListener = function(){
 
 };
 
+
+var datePickerListener = function(){
+ $('#submit-datepicker').on('click',function(e){
+  if ($("#datepicker-end").val() >= $("#datepicker-begin").val()) {
+    console.log(beginDate);
+    console.log(endDate);
+    beginDate = $("#datepicker-begin").val();
+    endDate = $("#datepicker-end").val();
+    $.ajax({
+      method: 'get',
+      url: '/history/index',
+      data: { "begin_date": beginDate, "end_date": endDate }
+    }).done(function(response){
+      $('#history-table-container').html(response);
+      $('#historyTable').tablesorter({sortList: [[2,1]] });
+      $('.table-tabs').children().removeClass("active");
+      $('#all-tab').addClass("active");
+    })
+
+  } else {
+    alert("结束日期必须要设得比开始日期晚");
+  }
+ })
+}

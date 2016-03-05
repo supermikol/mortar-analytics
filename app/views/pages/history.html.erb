@@ -11,7 +11,7 @@
           <input type="text" class="form-control" id="datepicker-begin" data-provide="datepicker">
           <span class="input-group-addon form-control">至</span>
           <input type="text" class="form-control" id="datepicker-end" data-provide="datepicker">
-          <button type="submit" class="btn btn-default">更新</button>
+          <button type="submit" id="submit-datepicker" class="btn btn-default">更新</button>
       </div>
     </div>
   </div>
@@ -20,14 +20,14 @@
 
 
 <div class="hr-divider">
-  <ul class="nav nav-pills hr-divider-content hr-divider-nav">
-    <li class="active">
+  <ul class="table-tabs nav nav-pills hr-divider-content hr-divider-nav">
+    <li id="all-tab" class="active">
       <a href="#all">全部</a>
     </li>
-    <li>
+    <li id="revenue-tab">
       <a href="#revenue">收入</a>
     </li>
-    <li>
+    <li id="expense-tab">
       <a href="#expense">开支</a>
     </li>
   </ul>
