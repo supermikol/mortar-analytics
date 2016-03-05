@@ -12,31 +12,181 @@
 }(jQuery));
 
 var json_data = [
-  {
-    "key" : "Expenses" ,
-    "values": [ [new Date("01/01/15").getTime(), 230.12], [new Date("01/02/15").getTime(), 192.97], [new Date("01/03/15").getTime(), 17.74], [new Date("01/04/15").getTime(), 81.95], [new Date("01/05/15").getTime(), 41.67], [new Date("01/06/15").getTime(), 142.51], [new Date("01/07/15").getTime(), 16.27], [new Date("01/08/15").getTime(), 45.34], [new Date("01/09/15").getTime(), 32.80] ]
-  },
-  {
-    "key" : "Profits" ,
-    "values" : [ [1420099200000, 591.52], [1420185600000, 249.78], [1420272000000, 13.87], [1420358400000, 199.56], [new Date("01/05/15").getTime(), 145.64], [new Date("01/06/15").getTime(), 207.12], [new Date("01/07/15").getTime(), 82.59], [new Date("01/08/15").getTime(), 132.31], [new Date("01/09/15").getTime(), 92.31] ]
-  }
+{
+  "key" : "Expenses" ,
+  "values": [ [new Date("01/01/15").getTime(), 230.12], [new Date("01/02/15").getTime(), 192.97], [new Date("01/03/15").getTime(), 17.74], [new Date("01/04/15").getTime(), 81.95], [new Date("01/05/15").getTime(), 41.67], [new Date("01/06/15").getTime(), 142.51], [new Date("01/07/15").getTime(), 16.27], [new Date("01/08/15").getTime(), 45.34], [new Date("01/09/15").getTime(), 32.80] ]
+},
+{
+  "key" : "Profits" ,
+  "values" : [ [new Date("01/01/15").getTime(), 591.52], [new Date("01/02/15"), 249.78], [new Date("01/03/15").getTime(), 13.87], [new Date("01/04/15").getTime(), 199.56], [new Date("01/05/15").getTime(), 145.64], [new Date("01/06/15").getTime(), 207.12], [new Date("01/07/15").getTime(), 82.59], [new Date("01/08/15").getTime(), 132.31], [new Date("01/09/15").getTime(), 92.31] ]
+}
 ]
 
 var beginDate;
 var endDate;
-var today = new Date();
-var dateBegin = new Date(today.getTime()-1000*60*60*24*7);
-var dateEnd = today;
+
 
 $(document).ready(function(){
-  addGraph();
-  initializeDatepicker();
-  addEntryListener();
-  datePickerListener();
   navBarListener();
+  initializeDatepicker();
+  datePickerListener();
   historyModalListener();
   historyListener();
+  displayStackedChart();
+  addEntryListener();
 });
+
+var navBarListener = function(){
+  $('a.navbar-icons').on('click', function(e){
+    e.preventDefault();
+    var url = $(e.target).attr('href');
+    $.ajax({
+      method: 'GET',
+      url: url
+    }).done(function(response){
+        $('.container').html(response);
+      $('#historyTable').tablesorter({sortList: [[1,1]] });
+      initializeDatepicker();
+      datePickerListener();
+      historyModalListener();
+      historyListener();
+      displayStackedChart();
+      addEntryListener();
+    })
+    $(this).parent().addClass("active");
+    $(this).parent().siblings().removeClass("active");
+  })
+}
+
+
+var displayStackedChart = function(){
+  $.ajax({
+    method: 'get',
+    url: '/stacked_chart',
+    dataType: 'json'
+  }).done(function(data){
+    var revenueData = data[0];
+    var expenseData = data[1];
+
+    var profitDataHash = {
+      "key": "Profits",
+      "values": []
+    }
+
+    var expenseDataHash = {
+      "key": "Expenses",
+      "values": []
+    }
+
+    var revenueDataHash = {
+      "key": "Revenues",
+      "values": []
+    }
+
+    var TIME_TO_NEXT_DAY = 86400000;
+
+    // Expenses Sum
+    for (var i = 0; i < expenseData.length; i++) {
+      if (i === 0 ) {
+        expenseDataHash.values.push([new Date(expenseData[0].date).getTime(), expenseData[0].sum]);
+      } else {
+        var previousDate = expenseDataHash.values[expenseDataHash.values.length - 1][0]
+        var nextDataDate = new Date(expenseData[i].date).getTime();
+
+        while ((previousDate += TIME_TO_NEXT_DAY) !== nextDataDate) {
+          expenseDataHash.values.push([previousDate, expenseDataHash.values[i-1][1]]);
+        }
+
+        expenseDataHash.values.push([nextDataDate, expenseDataHash.values[expenseDataHash.values.length - 1][1] + expenseData[i].sum])
+      }
+    }
+
+    // Revenues Sum
+    for (var i = 0; i < revenueData.length; i++) {
+      if (i === 0 ) {
+        revenueDataHash.values.push([new Date(revenueData[0].date).getTime(), revenueData[0].sum]);
+      } else {
+        var previousDate = revenueDataHash.values[revenueDataHash.values.length - 1][0]
+        var nextDataDate = new Date(revenueData[i].date).getTime();
+
+        while ((previousDate += TIME_TO_NEXT_DAY) !== nextDataDate) {
+          revenueDataHash.values.push([previousDate, revenueDataHash.values[revenueDataHash.values.length - 1][1]]);
+        }
+
+        revenueDataHash.values.push([nextDataDate, revenueDataHash.values[revenueDataHash.values.length - 1][1] + revenueData[i].sum])
+      }
+    }
+
+    // Filling in missing date ends for revenue and expenses
+    var firstRevenueDate = revenueDataHash.values[0][0];
+    var firstExpenseDate = expenseDataHash.values[0][0];
+    var lastRevenueDate = revenueDataHash.values[revenueDataHash.values.length - 1][0];
+    var lastExpenseDate = expenseDataHash.values[expenseDataHash.values.length - 1][0];
+
+    // Set missing end dates
+    if (lastRevenueDate > lastExpenseDate) {
+      while (lastRevenueDate > lastExpenseDate) {
+        expenseDataHash.values.push([lastExpenseDate += TIME_TO_NEXT_DAY, expenseDataHash.values[expenseDataHash.values.length - 1][1]]);
+      }
+    } else if (lastExpenseDate > lastRevenueDate) {
+      while (lastExpenseDate > lastRevenueDate) {
+        revenueDataHash.values.push([lastRevenueDate += TIME_TO_NEXT_DAY, revenueDataHash.values[revenueDataHash.values.length - 1][1]]);
+      }
+    }
+
+    // Set missing date starts with values of 0
+    if (firstRevenueDate < firstExpenseDate) {
+      while (firstRevenueDate < firstExpenseDate) {
+        expenseDataHash.values.unshift([firstExpenseDate -= TIME_TO_NEXT_DAY, 0]);
+      }
+    } else if (firstExpenseDate < firstRevenueDate) {
+      while (firstExpenseDate < firstRevenueDate) {
+        revenueDataHash.values.unshift([firstRevenueDate -= TIME_TO_NEXT_DAY, 0]);
+      }
+    }
+
+    // Calculate sum of profits per day
+    for (var i = 0; i < revenueDataHash.values.length; i++) {
+      profitDataHash.values.push([revenueDataHash.values[i][0], revenueDataHash.values[i][1] - expenseDataHash.values[i][1]])
+    }
+
+    var chart_data = [expenseDataHash, profitDataHash];
+
+    d3.selectAll("svg > *").remove();
+
+    // Display stacked area chart
+    nv.addGraph(function() {
+      var chart = nv.models.stackedAreaChart()
+        .margin({right: 100})
+            .x(function(d) { return d[0] })   //We can modify the data accessor functions...
+            .y(function(d) { return d[1] })   //...in case your data is formatted differently.
+            .useInteractiveGuideline(true)    //Tooltips which show all data points. Very nice!
+            .rightAlignYAxis(true)      //Let's move the y-axis to the right side.
+            .showControls(true)       //Allow user to choose 'Stacked', 'Stream', 'Expanded' mode.
+            .clipEdge(true);
+
+        //Format x-axis labels with custom function.
+        chart.xAxis
+        .tickFormat(function(d) {
+          return d3.time.format('%x')(new Date(d))
+        });
+
+      chart.yAxis
+      .tickFormat(d3.format(',.2f'));
+
+      d3.select('#chart svg')
+      .datum(chart_data)
+      .call(chart);
+
+      nv.utils.windowResize(chart.update);
+
+      chart.legend.margin({top: 20, bottom: 20})
+
+      return chart;
+    });
+  })
+}
+
 
 var initializeDatepicker = function(){
   var date = new Date();
@@ -52,64 +202,13 @@ var initializeDatepicker = function(){
     language: 'zh-CN',
     todayHighlight: true
   });
-  $('#datepicker-end').datepicker('setDate', dateEnd);
+  $('#datepicker-end').datepicker('setDate', new Date());
   $('#datepicker-end').datepicker('update');
 }
 
 
-var addGraph = function(){
-  d3.selectAll("svg > *").remove();
-  nv.addGraph(function() {
-    var chart = nv.models.stackedAreaChart()
-    .margin({right: 100})
-        .x(function(d) { return d[0] })   //We can modify the data accessor functions...
-        .y(function(d) { return d[1] })   //...in case your data is formatted differently.
-        .useInteractiveGuideline(true)    //Tooltips which show all data points. Very nice!
-        .rightAlignYAxis(true)      //Let's move the y-axis to the right side.
-        .showControls(true)       //Allow user to choose 'Stacked', 'Stream', 'Expanded' mode.
-        .clipEdge(true);
-
-    //Format x-axis labels with custom function.
-    chart.xAxis
-    .tickFormat(function(d) {
-      return d3.time.format('%x')(new Date(d))
-    });
-
-    chart.yAxis
-    .tickFormat(d3.format(',.2f'));
-
-    d3.select('#chart svg')
-    .datum(json_data)
-    .call(chart);
-
-    nv.utils.windowResize(chart.update);
-
-    chart.legend.margin({top: 20, bottom: 20})
-
-    return chart;
-  });
-}
-
-var navBarListener = function(){
-  $('a.navbar-icons').on('click', function(e){
-    e.preventDefault();
-    var url = $(e.target).attr('href');
-    $.ajax({
-      method: 'GET',
-      url: url
-    }).done(function(response){
-        $('.container').html(response);
-      $('#historyTable').tablesorter({sortList: [[1,1]] });
-      addGraph();
-      initializeDatepicker();
-    })
-    $(this).parent().addClass("active");
-    $(this).parent().siblings().removeClass("active");
-  })
-}
 
 var historyModalListener = function(){
-
   $('#myModal').on('show.bs.modal', function(event){
     var link = $(event.relatedTarget);
     var img_name = link.data('invoice');
@@ -117,9 +216,7 @@ var historyModalListener = function(){
     var modal = $(this);
     modal.find('.modal-body').html("<img class=\"img-responsive\" src=\"/images/" + img_name + "\" >");
   })
-
 };
-
 
 
 var historyListener = function(){
