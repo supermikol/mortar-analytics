@@ -22,16 +22,25 @@ var json_data = [
 }
 ]
 
+
 $.ajax({
   method: 'get',
   url: '/stacked_chart',
   dataType: 'json'
-}).done(function(response){
-  console.log(response);
+}).done(function(data){
+  console.log(data);
+  var revenueData = data[0];
+  var expenseData = data[1];
 
+  var profitDataHash = {
+    "key": "Profits",
+    "values": []
+  }
 
+  for (var i = 0; i < data[0].length; i++) {
 
-
+  }
+  console.log(profitDataHash);
 
 })
 // var new_json_data = []
