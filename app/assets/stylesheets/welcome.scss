@@ -8,7 +8,7 @@
 
 
 #invoice-column {
-  min-width: 90px;
+  min-width: 75px;
 }
 
 #type-column {
@@ -28,7 +28,11 @@
 }
 
 #country-column {
-  min-width: 90px;
+  min-width: 75px;
+}
+
+#quantity-column {
+  min-width: 75px;
 }
 
 #expense-type-column {
