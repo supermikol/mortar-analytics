@@ -6,7 +6,8 @@
         <th id="date-column">日期</th>
         <th id="invoice-column">单据号</th>
         <th id="vendor-column">客户／供货商</th>
-        <th id="expense-type-column">类</th>
+        <th id="expense-type-column">类型</th>
+        <th id="quantity-column">数量</th>
         <th id="description-column">简述</th>
         <th id="country-column">国家</th>
         <th id="total-column">总数</th>
@@ -21,6 +22,7 @@
         <td><a data-toggle="modal" data-target="#myModal" data-invoice="<%= record.doc_img %>">#<%= record.invoice_number %></td>
         <td><%= record.kindof == "Revenue" ? record.client : record.vendor %></td>
         <td><%= record.category %></td>
+        <td><%= record.quantity.nil? ? record.quantity : "无" %></td>
         <td><%= record.description %></td>
         <td><%= record.country %></td>
         <td>¥<%= record.total.to_i %></td>

@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get 'history/index' => 'pages#history'
   get 'modal' => 'pages#modal'
+  get 'transaction/add' => 'pages#form'
+  post 'transaction/add' => 'pages#add_entry'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

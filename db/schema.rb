@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20160303030211) do
     t.string   "kindof",         default: "Expenditure"
     t.string   "vendor"
     t.string   "category"
+    t.integer  "quantity"
     t.text     "description"
     t.float    "total"
     t.string   "country",        default: "N/A"

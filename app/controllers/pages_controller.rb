@@ -30,5 +30,13 @@ class PagesController < ApplicationController
 
   end
 
+  def form
+    render partial: 'form', layout: false
+  end
+
+  def add_entry
+
+  end
+
 
 end

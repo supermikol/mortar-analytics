@@ -28,7 +28,7 @@ var beginDate;
 var endDate;
 
 $(document).ready(function(){
-
+  addEntryListener();
   datePickerListener();
   // navBarListener();
   historyModalListener();
@@ -48,6 +48,8 @@ $(document).ready(function(){
     language: 'zh-CN',
     todayHighlight: true
   });
+
+
 
   var today = new Date();
   var dateBegin = new Date(today.getTime()-1000*60*60*24*7);
@@ -166,4 +168,24 @@ var datePickerListener = function(){
     alert("结束日期必须要设得比开始日期晚");
   }
  })
+}
+
+var addEntryListener = function(){
+
+  $('#add-entry').on('click', function(event){
+    $.ajax({
+      method: 'GET',
+      url: '/transaction/add'
+    }).done(function(response){
+      $('#addEntryModal').find('.modal-body').html(response);
+        $('#formEntryDate').datepicker({
+          format: "yyyy-mm-dd",
+          autoclose: true,
+          language: 'zh-CN',
+          todayHighlight: true
+        });
+    });
+
+  });
+
 }

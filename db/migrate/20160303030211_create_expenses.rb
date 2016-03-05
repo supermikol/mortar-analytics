@@ -6,6 +6,7 @@ class CreateExpenses < ActiveRecord::Migration
       t.string :kindof, default: "Expenditure"
       t.string :vendor
       t.string :category
+      t.integer :quantity, default: nil
       t.text :description
       t.float :total
       t.string :country, default: "N/A"
