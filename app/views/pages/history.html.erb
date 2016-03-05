@@ -33,15 +33,11 @@
   </ul>
 </div>
 
-
 <div class="flextable table-actions">
   <div class="flextable-item">
     <div class="btn-group">
-      <button type="button" class="btn btn-primary-outline">
-        <span class="icon icon-pencil"></span>
-      </button>
-      <button type="button" class="btn btn-primary-outline">
-        <span class="icon icon-erase"></span>
+      <button type="submit" data-toggle="modal" data-target="#addEntryModal" id="add-entry" class="btn btn-primary-outline">
+        <span class="icon icon-plus"></span>
       </button>
     </div>
   </div>
@@ -96,3 +92,15 @@
   </div>
 </div>
 
+<div class="modal fade" id="addEntryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">添加账面</h4>
+      </div>
+      <div class="modal-body">
+      </div>
+    </div>
+  </div>
+</div>

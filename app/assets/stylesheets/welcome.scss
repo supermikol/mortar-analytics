@@ -8,7 +8,7 @@
 
 
 #invoice-column {
-  min-width: 90px;
+  min-width: 75px;
 }
 
 #type-column {
@@ -16,7 +16,7 @@
 }
 
 #description-column {
-  min-width: 200px;
+  min-width: 125px;
 }
 
 #date-column {
@@ -24,18 +24,26 @@
 }
 
 #vendor-column {
-  min-width: 125px;
+  min-width: 90px;
 }
 
 #country-column {
-  min-width: 90px;
+  min-width: 75px;
+}
+
+#quantity-column {
+  min-width: 75px;
 }
 
 #expense-type-column {
-  min-width: 90px;
+  min-width: 75px;
 }
 
 #total-column {
+  min-width: 75px;
+}
+
+#edit-column {
   min-width: 75px;
 }
 

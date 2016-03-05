@@ -23,11 +23,22 @@ class PagesController < ApplicationController
         render partial: 'table', layout: false, locals: {records: @revenues}
       elsif params[:type] == "#expense"
         render partial: 'table', layout: false, locals: {records: @expenses}
-      else
+      elsif params[:type] == "#all"
         render partial: 'table', layout: false, locals: {records: @records}
+      elsif params[:type] == "datepicker"
+        render partial: 'table', layout: false, locals: {records: @records}
+      else
+        render 'history', layout: false
       end
     end
 
+  end
+
+  def form
+    render partial: 'form', layout: false
+  end
+
+  def add_entry
   end
 
   # Sums up revenues and expenses by date

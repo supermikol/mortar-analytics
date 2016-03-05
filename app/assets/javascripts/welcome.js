@@ -22,6 +22,43 @@ var json_data = [
 }
 ]
 
+var beginDate;
+var endDate;
+
+
+$(document).ready(function(){
+  navBarListener();
+  initializeDatepicker();
+  datePickerListener();
+  historyModalListener();
+  historyListener();
+  displayStackedChart();
+  addEntryListener();
+});
+
+var navBarListener = function(){
+  $('a.navbar-icons').on('click', function(e){
+    e.preventDefault();
+    var url = $(e.target).attr('href');
+    $.ajax({
+      method: 'GET',
+      url: url
+    }).done(function(response){
+        $('.container').html(response);
+      $('#historyTable').tablesorter({sortList: [[1,1]] });
+      initializeDatepicker();
+      datePickerListener();
+      historyModalListener();
+      historyListener();
+      displayStackedChart();
+      addEntryListener();
+    })
+    $(this).parent().addClass("active");
+    $(this).parent().siblings().removeClass("active");
+  })
+}
+
+
 var displayStackedChart = function(){
   $.ajax({
     method: 'get',
@@ -148,23 +185,11 @@ var displayStackedChart = function(){
       return chart;
     });
   })
-
 }
 
 
-var beginDate;
-var endDate;
-
-$(document).ready(function(){
-
-  datePickerListener();
-  // navBarListener();
-  historyModalListener();
-  historyListener();
-  displayStackedChart();
-
-
-  date = new Date();
+var initializeDatepicker = function(){
+  var date = new Date();
   $('#datepicker-begin').datepicker({
     format: "yyyy-mm-dd",
     autoclose: true,
@@ -177,51 +202,26 @@ $(document).ready(function(){
     language: 'zh-CN',
     todayHighlight: true
   });
-
-  var today = new Date();
-  var dateBegin = new Date(today.getTime()-1000*60*60*24*7);
-  var dateEnd = today;
-  $('#datepicker-end').datepicker('setDate', dateEnd);
+  $('#datepicker-end').datepicker('setDate', new Date());
   $('#datepicker-end').datepicker('update');
-
-  // $('#datepicker-begin').datepicker('setDate', dateBegin);
-  // $('#datepicker-begin').datepicker('update');
-
-});
-
-var navBarListener = function(){
-  $('.iconav-nav').on('click', 'a', function(e){
-    e.preventDefault();
-    var url = $(e.target).attr('href');
-    $.ajax({
-      method: 'GET',
-      url: url
-    }).done(function(response){
-      $('.container').html(response);
-    })
-  })
 }
 
+
+
 var historyModalListener = function(){
-  // $('tbody').on('click', 'a', function(e){
-    // e.preventDefault();
+  $('#myModal').on('show.bs.modal', function(event){
+    var link = $(event.relatedTarget);
+    var img_name = link.data('invoice');
 
-    $('#myModal').on('show.bs.modal', function(event){
-      var link = $(event.relatedTarget);
-      var img_name = link.data('invoice');
-
-      var modal = $(this);
-      modal.find('.modal-body').html("<img class=\"img-responsive\" src=\"/images/" + img_name + "\" >");
-    })
-
-  // })
+    var modal = $(this);
+    modal.find('.modal-body').html("<img class=\"img-responsive\" src=\"/images/" + img_name + "\" >");
+  })
 };
 
 
-
 var historyListener = function(){
-  $('#historyTable').tablesorter({sortList: [[2,1]] });
-  $('.nav-pills').on('click', 'a', function(e){
+  $('#historyTable').tablesorter({sortList: [[1,1]] });
+  $('.table-tabs').on('click', 'a', function(e){
     // e.preventDefault();
     var tag = $(this).attr('href');
     $.ajax({
@@ -230,7 +230,7 @@ var historyListener = function(){
       data: { "type": tag, "begin_date": beginDate, "end_date": endDate }
     }).done(function(response){
       $('#history-table-container').html(response);
-      $('#historyTable').tablesorter({sortList: [[2,1]] });
+      $('#historyTable').tablesorter({sortList: [[1,1]] });
       $(e.target).parent().siblings().removeClass("active");
       $(e.target).parent().addClass("active");
     })
@@ -243,17 +243,15 @@ var historyListener = function(){
 var datePickerListener = function(){
  $('#submit-datepicker').on('click',function(e){
   if ($("#datepicker-end").val() >= $("#datepicker-begin").val()) {
-    console.log(beginDate);
-    console.log(endDate);
     beginDate = $("#datepicker-begin").val();
     endDate = $("#datepicker-end").val();
     $.ajax({
       method: 'get',
       url: '/history/index',
-      data: { "begin_date": beginDate, "end_date": endDate }
+      data: { "begin_date": beginDate, "end_date": endDate, "type": "datepicker" }
     }).done(function(response){
       $('#history-table-container').html(response);
-      $('#historyTable').tablesorter({sortList: [[2,1]] });
+      $('#historyTable').tablesorter({sortList: [[1,1]] });
       $('.table-tabs').children().removeClass("active");
       $('#all-tab').addClass("active");
     })
@@ -262,4 +260,24 @@ var datePickerListener = function(){
     alert("结束日期必须要设得比开始日期晚");
   }
  })
+}
+
+var addEntryListener = function(){
+
+  $('#add-entry').on('click', function(event){
+    $.ajax({
+      method: 'GET',
+      url: '/transaction/add'
+    }).done(function(response){
+      $('#addEntryModal').find('.modal-body').html(response);
+        $('#formEntryDate').datepicker({
+          format: "yyyy-mm-dd",
+          autoclose: true,
+          language: 'zh-CN',
+          todayHighlight: true
+        });
+    });
+
+  });
+
 }
