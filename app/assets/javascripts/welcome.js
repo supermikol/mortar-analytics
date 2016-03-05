@@ -18,9 +18,29 @@ var json_data = [
 },
 {
   "key" : "Profits" ,
-  "values" : [ [1420099200000, 591.52], [1420185600000, 249.78], [1420272000000, 13.87], [1420358400000, 199.56], [new Date("01/05/15").getTime(), 145.64], [new Date("01/06/15").getTime(), 207.12], [new Date("01/07/15").getTime(), 82.59], [new Date("01/08/15").getTime(), 132.31], [new Date("01/09/15").getTime(), 92.31] ]
+  "values" : [ [new Date("01/01/15").getTime(), 591.52], [new Date("01/02/15"), 249.78], [new Date("01/03/15").getTime(), 13.87], [new Date("01/04/15").getTime(), 199.56], [new Date("01/05/15").getTime(), 145.64], [new Date("01/06/15").getTime(), 207.12], [new Date("01/07/15").getTime(), 82.59], [new Date("01/08/15").getTime(), 132.31], [new Date("01/09/15").getTime(), 92.31] ]
 }
 ]
+
+$.ajax({
+  method: 'get',
+  url: '/stacked_chart',
+  dataType: 'json'
+}).done(function(response){
+  console.log(response);
+
+
+
+
+
+})
+// var new_json_data = []
+
+// for (var i = 0; i < json_data.length; i++) {
+//   var new_data = json_data[0];
+//   for
+// }
+
 
 
 
@@ -60,35 +80,35 @@ $(document).ready(function(){
 
   nv.addGraph(function() {
     var chart = nv.models.stackedAreaChart()
-    .margin({right: 100})
-                  .x(function(d) { return d[0] })   //We can modify the data accessor functions...
-                  .y(function(d) { return d[1] })   //...in case your data is formatted differently.
-                  .useInteractiveGuideline(true)    //Tooltips which show all data points. Very nice!
-                  .rightAlignYAxis(true)      //Let's move the y-axis to the right side.
-                  .showControls(true)       //Allow user to choose 'Stacked', 'Stream', 'Expanded' mode.
-                  .clipEdge(true);
+      .margin({right: 100})
+                    .x(function(d) { return d[0] })   //We can modify the data accessor functions...
+                    .y(function(d) { return d[1] })   //...in case your data is formatted differently.
+                    .useInteractiveGuideline(true)    //Tooltips which show all data points. Very nice!
+                    .rightAlignYAxis(true)      //Let's move the y-axis to the right side.
+                    .showControls(true)       //Allow user to choose 'Stacked', 'Stream', 'Expanded' mode.
+                    .clipEdge(true);
 
-    //Format x-axis labels with custom function.
-    chart.xAxis
-    .tickFormat(function(d) {
-      return d3.time.format('%x')(new Date(d))
+      //Format x-axis labels with custom function.
+      chart.xAxis
+      .tickFormat(function(d) {
+        return d3.time.format('%x')(new Date(d))
+      });
+
+      chart.yAxis
+      .tickFormat(d3.format(',.2f'));
+
+      d3.select('#chart svg')
+      .datum(json_data)
+      .call(chart);
+
+      nv.utils.windowResize(chart.update);
+
+      chart.legend.margin({top: 20, bottom: 20})
+
+      return chart;
     });
 
-    chart.yAxis
-    .tickFormat(d3.format(',.2f'));
-
-    d3.select('#chart svg')
-    .datum(json_data)
-    .call(chart);
-
-    nv.utils.windowResize(chart.update);
-
-    chart.legend.margin({top: 20, bottom: 20})
-
-    return chart;
   });
-
-});
 
 var navBarListener = function(){
   $('.iconav-nav').on('click', 'a', function(e){

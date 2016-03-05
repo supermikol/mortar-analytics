@@ -23,5 +23,12 @@ class PagesController < ApplicationController
     end
   end
 
+  def stacked_chart
+    revenues = Revenue.select("date", "total")
+    expenses = Expense.select("date", "total")
+    @data = [revenues, expenses]
+    render json: @data
+  end
+
 
 end
