@@ -1,4 +1,4 @@
-;(function($){
+(function($){
   $.fn.datepicker.dates['zh-CN'] = {
       days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
       daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
@@ -11,20 +11,8 @@
   };
 }(jQuery));
 
-var json_data = [
-{
-  "key" : "Expenses" ,
-  "values": [ [new Date("01/01/15").getTime(), 230.12], [new Date("01/02/15").getTime(), 192.97], [new Date("01/03/15").getTime(), 17.74], [new Date("01/04/15").getTime(), 81.95], [new Date("01/05/15").getTime(), 41.67], [new Date("01/06/15").getTime(), 142.51], [new Date("01/07/15").getTime(), 16.27], [new Date("01/08/15").getTime(), 45.34], [new Date("01/09/15").getTime(), 32.80] ]
-},
-{
-  "key" : "Profits" ,
-  "values" : [ [new Date("01/01/15").getTime(), 591.52], [new Date("01/02/15"), 249.78], [new Date("01/03/15").getTime(), 13.87], [new Date("01/04/15").getTime(), 199.56], [new Date("01/05/15").getTime(), 145.64], [new Date("01/06/15").getTime(), 207.12], [new Date("01/07/15").getTime(), 82.59], [new Date("01/08/15").getTime(), 132.31], [new Date("01/09/15").getTime(), 92.31] ]
-}
-]
-
 var beginDate;
 var endDate;
-
 
 $(document).ready(function(){
   navBarListener();
@@ -39,17 +27,23 @@ $(document).ready(function(){
 var navBarListener = function(){
   $('a.navbar-icons').on('click', function(e){
     e.preventDefault();
+
+    // Grab parent href if user clicks on icon
     var url = $(e.target).attr('href');
+    if (!!!url) {
+      url = $(e.target).parent().attr('href');
+    }
+
     $.ajax({
       method: 'GET',
       url: url
     }).done(function(response){
-        $('.container').html(response);
+      $('.container').html(response);
       initializeDatepicker();
       datePickerListener();
       historyModalListener();
       historyListener();
-      displayStackedChart();
+      displayInitialChart();
       addEntryListener();
     })
     $(this).parent().addClass("active");
@@ -133,7 +127,6 @@ var datePickerListener = function(){
 }
 
 var addEntryListener = function(){
-
   $('#add-entry').on('click', function(event){
     $.ajax({
       method: 'GET',
@@ -150,7 +143,6 @@ var addEntryListener = function(){
     });
 
   });
-
 }
 
 var submitFormListener = function(){
@@ -163,7 +155,6 @@ var submitFormListener = function(){
       data: formData
     }).done(function(response){
       console.log(response);
-
     });
   });
 }
