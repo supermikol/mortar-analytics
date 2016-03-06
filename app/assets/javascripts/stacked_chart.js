@@ -8,14 +8,6 @@ var displayStackedChart = function(){
   }).done(function(data){
     var revenueData = data[0];
     var expenseData = data[1];
-    console.log(revenueData);
-    console.log(expenseData);
-
-    console.log(revenueData[0].date);
-    console.log(new Date(revenueData[0].date).getTime());
-    console.log(new Date(new Date(revenueData[0].date).getTime()));
-    console.log(d3.time.format('%x')(new Date(1456646400000)));
-
 
     var profitDataHash = {
       "key": "Profits",
@@ -37,10 +29,10 @@ var displayStackedChart = function(){
     // Expenses Sum
     for (var i = 0; i < expenseData.length; i++) {
       if (i === 0 ) {
-        expenseDataHash.values.push([new Date(expenseData[0].date).getTime(), expenseData[0].sum]);
+        expenseDataHash.values.push([new Date(expenseData[0].date).getTime() + new Date(expenseData[0].date).getTimezoneOffset() * 60000, expenseData[0].sum]);
       } else {
         var previousDate = expenseDataHash.values[expenseDataHash.values.length - 1][0]
-        var nextDataDate = new Date(expenseData[i].date).getTime();
+        var nextDataDate = new Date(expenseData[i].date).getTime() + new Date(expenseData[i].date).getTimezoneOffset() * 60000;
 
         while ((previousDate += TIME_TO_NEXT_DAY) !== nextDataDate) {
           expenseDataHash.values.push([previousDate, expenseDataHash.values[i-1][1]]);
@@ -53,10 +45,10 @@ var displayStackedChart = function(){
     // Revenues Sum
     for (var i = 0; i < revenueData.length; i++) {
       if (i === 0 ) {
-        revenueDataHash.values.push([new Date(revenueData[0].date).getTime(), revenueData[0].sum]);
+        revenueDataHash.values.push([new Date(revenueData[0].date).getTime() + new Date(revenueData[0].date).getTimezoneOffset() * 60000, revenueData[0].sum]);
       } else {
         var previousDate = revenueDataHash.values[revenueDataHash.values.length - 1][0]
-        var nextDataDate = new Date(revenueData[i].date).getTime();
+        var nextDataDate = new Date(revenueData[i].date).getTime() + new Date(revenueData[i].date).getTimezoneOffset() * 60000;
 
         while ((previousDate += TIME_TO_NEXT_DAY) !== nextDataDate) {
           revenueDataHash.values.push([previousDate, revenueDataHash.values[revenueDataHash.values.length - 1][1]]);
