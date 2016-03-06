@@ -15,14 +15,19 @@ var beginDate;
 var endDate;
 
 $(document).ready(function(){
-  navBarListener();
+  displayInitialCharts();
   initializeDatepicker();
+  bindListeners();
+});
+
+var bindListeners = function(){
+  navBarListener();
   datePickerListener();
   historyModalListener();
   historyListener();
-  displayInitialChart();
   addEntryListener();
-});
+  selectTimeframeListener();
+}
 
 var navBarListener = function(){
   $('a.navbar-icons').on('click', function(e){
@@ -38,12 +43,9 @@ var navBarListener = function(){
       url: url
     }).done(function(response){
       $('.container').html(response);
+      displayInitialCharts();
       initializeDatepicker();
-      datePickerListener();
-      historyModalListener();
-      historyListener();
-      displayInitialChart();
-      addEntryListener();
+      bindListeners();
     })
     $(this).parent().addClass("active");
     $(this).parent().siblings().removeClass("active");
