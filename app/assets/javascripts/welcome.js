@@ -32,7 +32,7 @@ $(document).ready(function(){
   datePickerListener();
   historyModalListener();
   historyListener();
-  displayStackedChart();
+  displayInitialChart();
   addEntryListener();
 });
 
