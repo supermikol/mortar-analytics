@@ -61,7 +61,8 @@ var navBarListener = function(){
 var displayStackedChart = function(){
   $.ajax({
     method: 'get',
-    url: '/stacked_chart',
+    url: '/sum',
+    data: { 'timeframe': 7 },
     dataType: 'json'
   }).done(function(data){
     var revenueData = data[0];

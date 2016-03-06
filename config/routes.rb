@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   get 'transaction/add' => 'pages#form'
   post 'transaction/add' => 'pages#add_entry'
 
-  get 'stacked_chart' => 'pages#stacked_chart'
+  get 'sum' => 'pages#sum'
 end
