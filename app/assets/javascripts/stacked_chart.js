@@ -15,6 +15,7 @@ var displayInitialChart = function(){
 }
 
 var selectStackedChartDates = function(e){
+  $('.dashhead-toolbar-item button').removeClass('active');
   var timeframe = $(this).attr('id').match(/\d+/)[0];
 
   $.ajax({
@@ -24,6 +25,7 @@ var selectStackedChartDates = function(e){
     dataType: 'json'
   }).done(function(data){
     displayStackedChart(data);
+    $(e.target).addClass('active');
   });
 
 }
