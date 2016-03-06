@@ -38,7 +38,7 @@ class PagesController < ApplicationController
     render partial: 'form', layout: false
   end
 
-  def add_entry
+  def create_entry
     if params[:type] == "revenue"
       Revenue.create( date: params[:entryDate], invoice_number: params[:invoiceNumber], client: params[:vendor], category: params[:category], description: params[:description], total: params[:total], country: params[:country], quantity: params[:quantity], doc_img: "sample_invoice4.png" )
     elsif params[:type] == "expense"
