@@ -36,10 +36,12 @@ var displayPieChart = function(pieChart, timeframe){
           .donutRatio(0.35)     //Configure how big you want the donut hole size to be.
           ;
 
-        d3.select("#" + pieChart + " svg")
-            .datum(pieChartData)
-            .transition().duration(350)
-            .call(chart);
+      d3.select("#" + pieChart + " svg")
+        .datum(pieChartData)
+        .transition().duration(350)
+        .call(chart);
+
+      nv.utils.windowResize(chart.update);
 
       return chart;
     });

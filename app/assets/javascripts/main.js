@@ -27,7 +27,6 @@ $(document).ready(function(){
 var navBarListener = function(){
   $('a.navbar-icons').on('click', function(e){
     e.preventDefault();
-
     // Grab parent href if user clicks on icon
     var url = $(e.target).attr('href');
     if (!!!url) {
