@@ -1,12 +1,7 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
 require 'date'
+
+Revenue.delete_all
+Expense.delete_all
 
 #Seed Revenue
 client_list = ["BCBG", "Jimmy Choo", "Max Mara", "Payless", "Walmart", "LV"]
@@ -16,7 +11,7 @@ descriptions = ["珧屇舑枹蠷煇蛖忏屾洷氚,呡咈旰貆乇虮蜾腶。",
 ]
 countries = ["美国", "西班牙", "土耳其", "内地", "英国", "澳洲", "韩国", "日本"]
 sample_invoices = ["sample_invoice.jpg","sample_invoice2.gif","sample_invoice3.gif","sample_invoice4.png"]
-counter = -5
+counter = -29
 30.times do
   7.times do
     Revenue.create( date: Date.today + counter, invoice_number: rand(999), client: client_list[rand(6)], category: categories[rand(4)], description: descriptions[rand(8)], total: rand(5000), country: countries[rand(7)], quantity: (rand(20)+1)*100, doc_img: sample_invoices[rand(4)] )
@@ -28,7 +23,7 @@ end
 vendor_list = ["淘宝店", "供应商1", "供应商2", "供应商3", "供应商4", "供应商5"]
 expense_category = ["办公用品", "工资" "材料", "管理费用"]
 
-counter = -5
+counter = -29
 30.times do
   5.times do
     Expense.create( date: Date.today + counter, invoice_number: rand(999), vendor: vendor_list[rand(7)], category: expense_category[rand(3)], description: descriptions[rand(8)], total: rand(3000), doc_img: sample_invoices[rand(4)])

@@ -46,10 +46,12 @@ class PagesController < ApplicationController
     end
   end
 
-  # Sums up revenues and expenses by date
+  # Sums up revenues and expenses up to current date
   def sum
-    revenues = Revenue.select("date", "SUM(total)").where("date >= ?", Date.today - params[:timeframe].to_i).group("date").order("date")
-    expenses = Expense.select("date", "SUM(total)").where("date >= ?", Date.today - params[:timeframe].to_i).group("date").order("date")
+    p Date.today
+    p Date.today - params[:timeframe].to_i
+    revenues = Revenue.select("date", "SUM(total)").where("date > ?", Date.today - params[:timeframe].to_i).group("date").order("date")
+    expenses = Expense.select("date", "SUM(total)").where("date > ?", Date.today - params[:timeframe].to_i).group("date").order("date")
     @data = [revenues, expenses]
     render json: @data
   end
