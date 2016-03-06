@@ -45,7 +45,6 @@ var navBarListener = function(){
       url: url
     }).done(function(response){
         $('.container').html(response);
-      $('#historyTable').tablesorter({sortList: [[1,1]] });
       initializeDatepicker();
       datePickerListener();
       historyModalListener();
@@ -276,8 +275,24 @@ var addEntryListener = function(){
           language: 'zh-CN',
           todayHighlight: true
         });
+        submitFormListener();
     });
 
   });
 
+}
+
+var submitFormListener = function(){
+  $('form').on('submit', function(e){
+    e.preventDefault();
+    var formData = $('form').serialize();
+    $.ajax({
+      method: 'POST',
+      url: "/transaction/add",
+      data: formData
+    }).done(function(response){
+      console.log(response);
+
+    });
+  });
 }
