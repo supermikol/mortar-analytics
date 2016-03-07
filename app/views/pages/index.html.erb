@@ -17,8 +17,8 @@
   <div id="stacked-chart-container">
     <h2 class="pull-left">Profits Vs. Expenses</h2>
     <div class="btn-group dashhead-toolbar-item btn-group-thirds pull-right">
-      <button type="button" class="btn btn-primary-outline" id="stacked-7">Week</button>
-      <button type="button" class="btn btn-primary-outline active" id="stacked-14">2 Weeks</button>
+      <button type="button" class="btn btn-primary-outline active" id="stacked-7">Week</button>
+      <button type="button" class="btn btn-primary-outline" id="stacked-14">2 Weeks</button>
       <button type="button" class="btn btn-primary-outline" id="stacked-30">Month</button>
     </div>
     <div id="chart" style="width:100%">
@@ -26,45 +26,34 @@
     </div>
   </div>
 
+  <div class="hr-divider m-t-md m-b">
+    <h3 class="hr-divider-content hr-divider-heading">Summary</h3>
+  </div>
+
   <div class="row text-center m-t-lg">
     <div class="col-sm-4 m-b-md">
       <div class="w-lg m-x-auto">
-        <canvas
-        class="ex-graph"
-        width="200" height="200"
-        data-chart="doughnut"
-        data-value="[{ value: 230, color: '#1ca8dd', label: 'Returning' }, { value: 130, color: '#1bc98e', label: 'New' }]"
-        data-segment-stroke-color="#fff">
-        </canvas>
+        <div id="pie-chart-7">
+          <svg class="pie-chart" style="height:300px">
+        </div>
       </div>
-      <strong class="text-muted">Traffic</strong>
-      <h3>New vs Returning</h3>
+      <strong class="text-muted">1-Week</strong>
     </div>
     <div class="col-sm-4 m-b-md">
       <div class="w-lg m-x-auto">
-        <canvas
-        class="ex-graph"
-        width="200" height="200"
-        data-chart="doughnut"
-        data-value="[{ value: 330, color: '#1ca8dd', label: 'Recurring' }, { value: 30, color: '#1bc98e', label: 'New' }]"
-        data-segment-stroke-color="#fff">
-        </canvas>
+        <div id="pie-chart-14">
+          <svg class="pie-chart" style="height:300px">
+        </div>
       </div>
-      <strong class="text-muted">Revenue</strong>
-      <h3>New vs Recurring</h3>
+      <strong class="text-muted">2-Week</strong>
     </div>
     <div class="col-sm-4 m-b-md">
       <div class="w-lg m-x-auto">
-        <canvas
-        class="ex-graph"
-        width="200" height="200"
-        data-chart="doughnut"
-        data-value="[{ value: 100, color: '#1ca8dd', label: 'Referrals' }, { value: 260, color: '#1bc98e', label: 'Direct' }]"
-        data-segment-stroke-color="#fff">
-        </canvas>
+        <div id="pie-chart-30">
+          <svg class="pie-chart" style="height:300px">
+        </div>
       </div>
-      <strong class="text-muted">Traffic</strong>
-      <h3>Direct vs Referrals</h3>
+      <strong class="text-muted">1-Month</strong>
     </div>
   </div>
 
