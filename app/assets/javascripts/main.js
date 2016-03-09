@@ -18,10 +18,11 @@ $(document).ready(function(){
   displayInitialCharts();
   initializeDatepicker();
   bindListeners();
+
 });
 
 var bindListeners = function(){
-  navBarListener();
+  // navBarListener();
   datePickerListener();
   historyModalListener();
   historyListener();
@@ -159,3 +160,5 @@ var submitFormListener = function(){
     });
   });
 }
+
+
