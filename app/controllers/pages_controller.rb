@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def index
+    @history_tab = false
     if request.xhr?
       render 'index', layout: false
     else
@@ -9,6 +10,7 @@ class PagesController < ApplicationController
 
 
   def history
+    @history_tab = true
     unless params[:begin_date].nil? || params[:end_date].nil?
       @revenues = Revenue.where(date: (params[:begin_date]..params[:end_date]))
       @expenses = Expense.where(date: (params[:begin_date]..params[:end_date]))
@@ -31,6 +33,7 @@ class PagesController < ApplicationController
         render 'history', layout: false
       end
     end
+
 
   end
 

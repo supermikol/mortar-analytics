@@ -18,10 +18,11 @@ $(document).ready(function(){
   displayInitialCharts();
   initializeDatepicker();
   bindListeners();
+
 });
 
 var bindListeners = function(){
-  navBarListener();
+  // navBarListener();
   datePickerListener();
   historyModalListener();
   historyListener();
@@ -29,28 +30,28 @@ var bindListeners = function(){
   selectTimeframeListener();
 }
 
-var navBarListener = function(){
-  $('a.navbar-icons').on('click', function(e){
-    e.preventDefault();
-    // Grab parent href if user clicks on icon
-    var url = $(e.target).attr('href');
-    if (!!!url) {
-      url = $(e.target).parent().attr('href');
-    }
+// var navBarListener = function(){
+//   $('a.navbar-icons').on('click', function(e){
+//     e.preventDefault();
+//     // Grab parent href if user clicks on icon
+//     var url = $(e.target).attr('href');
+//     if (!!!url) {
+//       url = $(e.target).parent().attr('href');
+//     }
 
-    $.ajax({
-      method: 'GET',
-      url: url
-    }).done(function(response){
-      $('.container').html(response);
-      displayInitialCharts();
-      initializeDatepicker();
-      bindListeners();
-    })
-    $(this).parent().addClass("active");
-    $(this).parent().siblings().removeClass("active");
-  })
-}
+//     $.ajax({
+//       method: 'GET',
+//       url: url
+//     }).done(function(response){
+//       $('.container').html(response);
+//       displayInitialCharts();
+//       initializeDatepicker();
+//       bindListeners();
+//     })
+//     $(this).parent().addClass("active");
+//     $(this).parent().siblings().removeClass("active");
+//   })
+// }
 
 
 var initializeDatepicker = function(){
@@ -159,3 +160,5 @@ var submitFormListener = function(){
     });
   });
 }
+
+
