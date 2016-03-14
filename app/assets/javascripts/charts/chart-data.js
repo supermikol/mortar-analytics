@@ -22,10 +22,10 @@ var calculateDataSums = function(data){
   // Expenses Sum
   for (var i = 0; i < expenseData.length; i++) {
     if (i === 0 ) {
-      expenseDataHash.values.push([new Date(expenseData[0].date).getTime() + new Date(expenseData[0].date).getTimezoneOffset() * 60000, expenseData[0].sum]);
+      expenseDataHash.values.push([new Date(expenseData[0].date).getTime(), expenseData[0].sum]);
     } else {
       var previousDate = expenseDataHash.values[expenseDataHash.values.length - 1][0]
-      var nextDataDate = new Date(expenseData[i].date).getTime() + new Date(expenseData[i].date).getTimezoneOffset() * 60000;
+      var nextDataDate = new Date(expenseData[i].date).getTime();
 
       while ((previousDate += TIME_TO_NEXT_DAY) !== nextDataDate) {
         expenseDataHash.values.push([previousDate, expenseDataHash.values[i-1][1]]);
@@ -38,10 +38,10 @@ var calculateDataSums = function(data){
   // Revenues Sum
   for (var i = 0; i < revenueData.length; i++) {
     if (i === 0 ) {
-      revenueDataHash.values.push([new Date(revenueData[0].date).getTime() + new Date(revenueData[0].date).getTimezoneOffset() * 60000, revenueData[0].sum]);
+      revenueDataHash.values.push([new Date(revenueData[0].date).getTime(), revenueData[0].sum]);
     } else {
       var previousDate = revenueDataHash.values[revenueDataHash.values.length - 1][0]
-      var nextDataDate = new Date(revenueData[i].date).getTime() + new Date(revenueData[i].date).getTimezoneOffset() * 60000;
+      var nextDataDate = new Date(revenueData[i].date).getTime();
 
       while ((previousDate += TIME_TO_NEXT_DAY) !== nextDataDate) {
         revenueDataHash.values.push([previousDate, revenueDataHash.values[revenueDataHash.values.length - 1][1]]);
