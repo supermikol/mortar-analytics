@@ -54,7 +54,7 @@ var displayStackedChart = function(data){
     //Format x-axis labels with custom function.
     chart.xAxis
     .tickFormat(function(d) {
-      return d3.time.format('%x')(new Date(d))
+      return d3.time.format.utc('%x')(new Date(d))
     });
 
     chart.yAxis
