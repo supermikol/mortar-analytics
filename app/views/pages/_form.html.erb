@@ -1,4 +1,5 @@
-<form class="form">
+<%= form_for :revenue, url: transaction_add_path, remote: true do |form| %>
+
   <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6">
       <div class="form-group">
@@ -56,8 +57,8 @@
   </div>
 
   <div class="form-group">
-    <label for="exampleInputFile">简述</label>
-    <textarea class="form-control" name="description" rows="3" placeholder="Computer repair fee."></textarea>
+    <label for="exampleInputFile">Description</label>
+    <textarea class="form-control" name="description" rows="3" placeholder="Computer repair fee"></textarea>
   </div>
 
   <div class="form-group">
@@ -70,10 +71,9 @@
     <input type="number" name="total" min=0 class="form-control" id="form_total" placeholder="90500">
   </div>
 
-  <div class="form-group">
-    <label for="exampleInputFile">Upload Invoice Image</label>
-    <input type="file" name="invoiceImage" id="form_invoice_image">
-  </div>
+  <%= form.file_field :invoice_jpg %>
 
   <button type="submit" class="btn btn-default">Submit</button>
-</form>
+
+
+<% end %>

@@ -21,7 +21,7 @@
 
         <td><%= record.kindof == 'Expenditure' ? "Expense" : "Revenue" %></td>
         <td><%= record.date %></td>
-        <td><%= record.kindof == "Revenue" ? record.client : record.vendor %></td>
+        <td><%= record.vendor %></td>
         <td><%= record.quantity.nil? ? "None" : record.quantity %></td>
         <td><%= record.category %></td>
         <td><%= record.description %></td>

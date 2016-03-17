@@ -42,11 +42,12 @@ class PagesController < ApplicationController
   end
 
   def create_entry
-    if params[:type] == "revenue"
-      Revenue.create( date: params[:entryDate], invoice_number: params[:invoiceNumber], client: params[:vendor], category: params[:category], description: params[:description], total: params[:total], country: params[:country], quantity: params[:quantity], doc_img: "sample_invoice4.png" )
-    elsif params[:type] == "expense"
-      Expense.create( date: params[:entryDate], invoice_number: params[:invoiceNumber], client: params[:vendor], category: params[:category], description: params[:description], total: params[:total], doc_img: "sample_invoice4.png" )
-    end
+
+    @revenue = Revenue.new( revenue_params )
+    @revenue.doc_img = "sample_invoice4.png"
+    @revenue.save
+
+    redirect_to history_index_path
   end
 
   # Sums up revenues and expenses up to current date
@@ -57,6 +58,14 @@ class PagesController < ApplicationController
     expenses = Expense.select("date", "SUM(total)").where("date > ?", Date.today - params[:timeframe].to_i).group("date").order("date")
     @data = [revenues, expenses]
     render json: @data
+  end
+
+  private
+  def revenue_params
+
+    params.require(:revenue).permit(:invoice_jpg, :entryDate, :invoiceNumber, :vendor, :category, :description, :total, :country, :quantity)
+
+    # date: params[:entryDate], invoice_number: params[:invoiceNumber], client: params[:vendor], category: params[:category], description: params[:description], total: params[:total], country: params[:country], quantity: params[:quantity], doc_img: "sample_invoice4.png")
   end
 
 

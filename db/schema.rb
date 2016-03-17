@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160303030211) do
+ActiveRecord::Schema.define(version: 20160317182206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,31 +19,39 @@ ActiveRecord::Schema.define(version: 20160303030211) do
   create_table "expenses", force: :cascade do |t|
     t.date     "date"
     t.string   "invoice_number"
-    t.string   "kindof",         default: "Expenditure"
+    t.string   "kindof",                   default: "Expenditure"
     t.string   "vendor"
     t.string   "category"
     t.integer  "quantity"
     t.text     "description"
     t.float    "total"
-    t.string   "country",        default: "N/A"
-    t.string   "doc_img",        default: ""
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.string   "country",                  default: "N/A"
+    t.string   "doc_img",                  default: ""
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.string   "invoice_jpg_file_name"
+    t.string   "invoice_jpg_content_type"
+    t.integer  "invoice_jpg_file_size"
+    t.datetime "invoice_jpg_updated_at"
   end
 
   create_table "revenues", force: :cascade do |t|
     t.date     "date"
     t.string   "invoice_number"
-    t.string   "client"
-    t.string   "kindof",         default: "Revenue"
+    t.string   "vendor"
+    t.string   "kindof",                   default: "Revenue"
     t.string   "category"
     t.integer  "quantity"
     t.text     "description"
     t.float    "total"
     t.string   "country"
-    t.string   "doc_img",        default: ""
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.string   "doc_img",                  default: ""
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.string   "invoice_jpg_file_name"
+    t.string   "invoice_jpg_content_type"
+    t.integer  "invoice_jpg_file_size"
+    t.datetime "invoice_jpg_updated_at"
   end
 
 end

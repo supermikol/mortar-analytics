@@ -12,7 +12,7 @@ sample_invoices = ["sample_invoice.jpg","sample_invoice2.gif","sample_invoice3.g
 counter = -29
 30.times do
   7.times do
-    Revenue.create( date: Date.today + counter, invoice_number: rand(999), client: client_list[rand(6)], category: categories[rand(4)], description: descriptions[rand(8)], total: rand(50000), country: countries[rand(7)], quantity: (rand(20)+1)*100, doc_img: sample_invoices[rand(4)] )
+    Revenue.create( date: Date.today + counter, invoice_number: rand(999), vendor: client_list[rand(6)], category: categories[rand(4)], description: descriptions[rand(8)], total: rand(50000), country: countries[rand(7)], quantity: (rand(20)+1)*100, doc_img: sample_invoices[rand(4)] )
   end
   counter += 1
 end
