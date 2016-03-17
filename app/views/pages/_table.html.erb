@@ -4,14 +4,14 @@
       <tr>
 
         <th id="type-column">  </th>
-        <th id="date-column">日期</th>
-        <th id="vendor-column">客户／提供者</th>
-        <th id="quantity-column">数量</th>
-        <th id="expense-type-column">类</th>
-        <th id="description-column">简述</th>
-        <th id="country-column">国家</th>
-        <th id="total-column">总价</th>
-        <th id="invoice-column">单据号</th>
+        <th id="date-column">Date</th>
+        <th id="vendor-column">Client/Supplier</th>
+        <th id="quantity-column">Quantity</th>
+        <th id="expense-type-column">Category</th>
+        <th id="description-column">Description</th>
+        <th id="country-column">Country</th>
+        <th id="total-column">Total</th>
+        <th id="invoice-column">Invoice Number</th>
         <th id="edit-column"></th>
       </tr>
     </thead>
@@ -19,16 +19,16 @@
       <% records.each do |record| %>
       <tr>
 
-        <td><%= record.kindof == 'Expenditure' ? "开支" : "收入" %></td>
+        <td><%= record.kindof == 'Expenditure' ? "Expense" : "Revenue" %></td>
         <td><%= record.date %></td>
         <td><%= record.kindof == "Revenue" ? record.client : record.vendor %></td>
-        <td><%= record.quantity.nil? ? "无" : record.quantity %></td>
+        <td><%= record.quantity.nil? ? "None" : record.quantity %></td>
         <td><%= record.category %></td>
         <td><%= record.description %></td>
         <td><%= record.country %></td>
         <td>$<%= record.total.to_i %></td>
         <td><a data-toggle="modal" data-target="#myModal" data-invoice="<%= record.doc_img %>">A<%= record.invoice_number %></td>
-        <td><a href="#">修改</a></td>
+        <td><a href="#">Edit</a></td>
       </tr>
       <% end %>
     </tbody>

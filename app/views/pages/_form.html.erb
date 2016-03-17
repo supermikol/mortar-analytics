@@ -4,19 +4,19 @@
       <div class="form-group">
         <div class="radio-inline">
           <label>
-            <input type="radio" name="type" id="revenueRadio" value="revenue" checked>收入
+            <input type="radio" name="type" id="revenueRadio" value="revenue" checked>Revenue
           </label>
         </div>
         <div class="radio-inline">
           <label>
-            <input type="radio" name="type" id="expenseRadio" value="expense">开支
+            <input type="radio" name="type" id="expenseRadio" value="expense">Expense
           </label>
         </div>
       </div>
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6">
       <div class="form-group">
-        <label for="exampleInputEmail1">日期</label>
+        <label for="exampleInputEmail1">Date</label>
         <div class="input-with-icon">
           <input type="text" id="formEntryDate" name="entryDate" class="form-control" data-provide="datepicker">
           <span class="icon icon-calendar"></span>
@@ -28,14 +28,14 @@
   <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6">
       <div class="form-group">
-        <label>单据号</label>
+        <label>Invoice Number</label>
         <input type="text" class="form-control" id="form_invoice_number" name="invoiceNumber" placeholder="10048">
       </div>
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6">
       <div class="form-group">
-        <label>类</label>
-        <input type="text" class="form-control" name="category" id="form_type" placeholder="咨询销售／产品销售／管理费用／租金">
+        <label>Category</label>
+        <input type="text" class="form-control" name="category" id="form_type" placeholder="Consulting Fee/Product Sale/Rental Expense">
       </div>
     </div>
   </div>
@@ -43,35 +43,35 @@
   <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6">
       <div class="form-group">
-        <label>客户／提供者</label>
-        <input type="text" class="form-control" name="vendor" id="form_vendor_name" placeholder="顺丰／淘宝店">
+        <label>Client/Supplier</label>
+        <input type="text" class="form-control" name="vendor" id="form_vendor_name" placeholder="FedEx/Office Depot">
       </div>
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6">
       <div class="form-group">
-        <label>国家</label>
-        <input type="text" name="country" class="form-control" id="form_country" placeholder="（开支不需填）">
+        <label>Country</label>
+        <input type="text" name="country" class="form-control" id="form_country" placeholder="(Optional for Expense)">
       </div>
     </div>
   </div>
 
   <div class="form-group">
     <label for="exampleInputFile">简述</label>
-    <textarea class="form-control" name="description" rows="3" placeholder="修电脑费用/寄发票"></textarea>
+    <textarea class="form-control" name="description" rows="3" placeholder="Computer repair fee."></textarea>
   </div>
 
   <div class="form-group">
-    <label for="exampleInputFile">数量</label>
-    <input type="number" name="quantity" min=0 class="form-control" id="form_quantity" placeholder="4500 （开支不需填）">
+    <label for="exampleInputFile">Quantity</label>
+    <input type="number" name="quantity" min=0 class="form-control" id="form_quantity" placeholder="(Optional for Expense)">
   </div>
 
   <div class="form-group">
-    <label for="exampleInputFile">总价</label>
+    <label for="exampleInputFile">Total Price</label>
     <input type="number" name="total" min=0 class="form-control" id="form_total" placeholder="90500">
   </div>
 
   <div class="form-group">
-    <label for="exampleInputFile">上传收据</label>
+    <label for="exampleInputFile">Upload Invoice Image</label>
     <input type="file" name="invoiceImage" id="form_invoice_image">
   </div>
 
