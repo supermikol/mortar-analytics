@@ -19,30 +19,6 @@ var bindListeners = function(){
   selectTimeframeListener();
 }
 
-// var navBarListener = function(){
-//   $('a.navbar-icons').on('click', function(e){
-//     e.preventDefault();
-//     // Grab parent href if user clicks on icon
-//     var url = $(e.target).attr('href');
-//     if (!!!url) {
-//       url = $(e.target).parent().attr('href');
-//     }
-
-//     $.ajax({
-//       method: 'GET',
-//       url: url
-//     }).done(function(response){
-//       $('.container').html(response);
-//       displayInitialCharts();
-//       initializeDatepicker();
-//       bindListeners();
-//     })
-//     $(this).parent().addClass("active");
-//     $(this).parent().siblings().removeClass("active");
-//   })
-// }
-
-
 var initializeDatepicker = function(){
   var date = new Date();
   $('#datepicker-begin').datepicker({
@@ -116,7 +92,7 @@ var datePickerListener = function(){
     })
 
   } else {
-    alert("结束日期必须要设得比开始日期晚");
+    alert("End date cannot be before start date");
   }
  })
 }
@@ -140,6 +116,7 @@ var addEntryListener = function(){
   });
 }
 
+// NOT IN USE BECAUSE OF PAPERCLIP
 var submitFormListener = function(){
   $('form').on('submit', function(e){
     e.preventDefault();

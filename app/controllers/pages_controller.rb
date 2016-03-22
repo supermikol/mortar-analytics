@@ -70,7 +70,6 @@ class PagesController < ApplicationController
 
     params.require(:revenue).permit(:invoice_jpg, :date, :invoice_number, :vendor, :category, :description, :total, :country, :quantity)
 
-    # date: params[:entryDate], invoice_number: params[:invoiceNumber], client: params[:vendor], category: params[:category], description: params[:description], total: params[:total], country: params[:country], quantity: params[:quantity], doc_img: "sample_invoice4.png")
   end
 
 
