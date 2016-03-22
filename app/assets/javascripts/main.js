@@ -65,9 +65,16 @@ var historyModalListener = function(){
   $('#myModal').on('show.bs.modal', function(event){
     var link = $(event.relatedTarget);
     var img_name = link.data('invoice');
-
+    var transaction_id = link.data('id');
     var modal = $(this);
-    modal.find('.modal-body').html("<img class=\"img-responsive\" src=\"/images/" + img_name + "\" >");
+    $.ajax({
+      method: 'GET',
+      url: '/history/invoice/' + transaction_id
+    }).done(function(response){
+      modal.find('.modal-body').html(response);
+    });
+
+
   })
 };
 

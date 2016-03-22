@@ -8,7 +8,6 @@ class PagesController < ApplicationController
     end
   end
 
-
   def history
     @history_tab = true
     unless params[:begin_date].nil? || params[:end_date].nil?
@@ -34,15 +33,21 @@ class PagesController < ApplicationController
       end
     end
 
-
   end
 
+  #display invoice in modal
+  def display_invoice
+    @invoice = Revenue.find(params[:id])
+    render partial: 'invoice', layout: false
+  end
+
+  # Display form in modal for add entry
   def form
     render partial: 'form', layout: false
   end
 
+  #submit form for add entry
   def create_entry
-
     @revenue = Revenue.new( revenue_params )
     @revenue.doc_img = "sample_invoice4.png"
     @revenue.save
@@ -63,7 +68,7 @@ class PagesController < ApplicationController
   private
   def revenue_params
 
-    params.require(:revenue).permit(:invoice_jpg, :entryDate, :invoiceNumber, :vendor, :category, :description, :total, :country, :quantity)
+    params.require(:revenue).permit(:invoice_jpg, :date, :invoice_number, :vendor, :category, :description, :total, :country, :quantity)
 
     # date: params[:entryDate], invoice_number: params[:invoiceNumber], client: params[:vendor], category: params[:category], description: params[:description], total: params[:total], country: params[:country], quantity: params[:quantity], doc_img: "sample_invoice4.png")
   end
