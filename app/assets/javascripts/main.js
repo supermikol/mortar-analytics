@@ -74,7 +74,6 @@ var historyModalListener = function(){
       modal.find('.modal-body').html(response);
     });
 
-
   })
 };
 
