@@ -33,10 +33,13 @@ var selectStackedChartDates = function(e){
 
 
 var displayStackedChart = function(data){
-
-  var dataHash = calculateDataSums(data);
-
-  var stackedChartData = [dataHash["expenseDataHash"], dataHash["profitDataHash"]];
+  var stackedChartData;
+  if(!!!data[0][0] || !!!data[1][0]) {
+    stackedChartData = []
+  } else {
+    var dataHash = calculateDataSums(data);
+    stackedChartData = [dataHash["expenseDataHash"], dataHash["profitDataHash"]];
+  }
 
   // d3.selectAll("svg > *").remove();
 

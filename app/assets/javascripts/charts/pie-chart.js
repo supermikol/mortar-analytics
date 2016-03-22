@@ -12,18 +12,23 @@ var displayPieChart = function(pieChart, timeframe){
     data: { 'timeframe': timeframe },
     dataType: 'json'
   }).done(function(data){
-    var dataHash = calculateDataSums(data);
+    var pieChartData;
 
-    var pieChartData = [
-    {
-      "label": "Expenses",
-      "value": dataHash["expenseDataHash"].values.pop()[1]
-    },
-    {
-      "label": "Profits",
-      "value": dataHash["profitDataHash"].values.pop()[1]
+    if(!!!data[0][0] || !!!data[1][0]) {
+      pieChartData = []
+    } else {
+      var dataHash = calculateDataSums(data);
+      var pieChartData = [
+        {
+          "label": "Expenses",
+          "value": dataHash["expenseDataHash"].values.pop()[1]
+        },
+        {
+          "label": "Profits",
+          "value": dataHash["profitDataHash"].values.pop()[1]
+        }
+        ]
     }
-    ]
 
     nv.addGraph(function() {
       var chart = nv.models.pieChart()
