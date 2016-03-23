@@ -2,6 +2,9 @@ ruby '2.2.1'
 
 source 'https://rubygems.org'
 
+
+gem "paperclip", "~> 4.3"
+
 gem 'chart-js-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'

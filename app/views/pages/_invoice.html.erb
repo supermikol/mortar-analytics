@@ -1,0 +1,6 @@
+<% if @invoice.invoice_jpg_file_name.nil? %>
+  <img class="img-responsive" src="/images/<%= @invoice.doc_img %>" >
+<% else %>
+  <%= image_tag(@invoice.invoice_jpg.url, class: "img-responsive") %>
+<% end %>
+

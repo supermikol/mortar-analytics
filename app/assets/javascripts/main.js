@@ -1,15 +1,4 @@
-(function($){
-  $.fn.datepicker.dates['zh-CN'] = {
-      days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
-      daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
-      daysMin:  ["日", "一", "二", "三", "四", "五", "六", "日"],
-      months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
-      monthsShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
-      today: "今天",
-      suffix: [],
-      meridiem: ["上午", "下午"]
-  };
-}(jQuery));
+
 
 var beginDate;
 var endDate;
@@ -30,42 +19,16 @@ var bindListeners = function(){
   selectTimeframeListener();
 }
 
-// var navBarListener = function(){
-//   $('a.navbar-icons').on('click', function(e){
-//     e.preventDefault();
-//     // Grab parent href if user clicks on icon
-//     var url = $(e.target).attr('href');
-//     if (!!!url) {
-//       url = $(e.target).parent().attr('href');
-//     }
-
-//     $.ajax({
-//       method: 'GET',
-//       url: url
-//     }).done(function(response){
-//       $('.container').html(response);
-//       displayInitialCharts();
-//       initializeDatepicker();
-//       bindListeners();
-//     })
-//     $(this).parent().addClass("active");
-//     $(this).parent().siblings().removeClass("active");
-//   })
-// }
-
-
 var initializeDatepicker = function(){
   var date = new Date();
   $('#datepicker-begin').datepicker({
     format: "yyyy-mm-dd",
     autoclose: true,
-    language: 'zh-CN',
     todayHighlight: true
   });
   $('#datepicker-end').datepicker({
     format: "yyyy-mm-dd",
     autoclose: true,
-    language: 'zh-CN',
     todayHighlight: true
   });
   $('#datepicker-end').datepicker('setDate', new Date());
@@ -78,9 +41,15 @@ var historyModalListener = function(){
   $('#myModal').on('show.bs.modal', function(event){
     var link = $(event.relatedTarget);
     var img_name = link.data('invoice');
-
+    var transaction_id = link.data('id');
     var modal = $(this);
-    modal.find('.modal-body').html("<img class=\"img-responsive\" src=\"/images/" + img_name + "\" >");
+    $.ajax({
+      method: 'GET',
+      url: '/history/invoice/' + transaction_id
+    }).done(function(response){
+      modal.find('.modal-body').html(response);
+    });
+
   })
 };
 
@@ -123,7 +92,7 @@ var datePickerListener = function(){
     })
 
   } else {
-    alert("结束日期必须要设得比开始日期晚");
+    alert("End date cannot be before start date");
   }
  })
 }
@@ -138,15 +107,16 @@ var addEntryListener = function(){
         $('#formEntryDate').datepicker({
           format: "yyyy-mm-dd",
           autoclose: true,
-          language: 'zh-CN',
+
           todayHighlight: true
         });
-        submitFormListener();
+        // submitFormListener();
     });
 
   });
 }
 
+// NOT IN USE BECAUSE OF PAPERCLIP
 var submitFormListener = function(){
   $('form').on('submit', function(e){
     e.preventDefault();
