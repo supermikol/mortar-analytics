@@ -3,7 +3,7 @@ class CreateRevenues < ActiveRecord::Migration
     create_table :revenues do |t|
       t.date :date
       t.string :invoice_number
-      t.string :client
+      t.string :vendor
       t.string :kindof, default: "Revenue"
       t.string :category
       t.integer :quantity

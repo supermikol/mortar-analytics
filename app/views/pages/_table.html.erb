@@ -21,13 +21,13 @@
 
         <td><%= record.kindof == 'Expenditure' ? "Expense" : "Revenue" %></td>
         <td><%= record.date %></td>
-        <td><%= record.kindof == "Revenue" ? record.client : record.vendor %></td>
+        <td><%= record.vendor %></td>
         <td><%= record.quantity.nil? ? "None" : record.quantity %></td>
         <td><%= record.category %></td>
         <td><%= record.description %></td>
         <td><%= record.country %></td>
         <td>$<%= record.total.to_i %></td>
-        <td><a data-toggle="modal" data-target="#myModal" data-invoice="<%= record.doc_img %>">A<%= record.invoice_number %></td>
+        <td><a data-toggle="modal" data-target="#myModal" data-invoice="<%= record.doc_img %>" data-id="<%= record.id%>">A<%= record.invoice_number %></td>
         <td><a href="#">Edit</a></td>
       </tr>
       <% end %>

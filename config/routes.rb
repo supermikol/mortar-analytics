@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'history/index' => 'pages#history'
   get 'modal' => 'pages#modal'
   get 'transaction/add' => 'pages#form'
+  get 'history/invoice/:id' => 'pages#display_invoice'
   post 'transaction/add' => 'pages#create_entry'
 
   get 'sum' => 'pages#sum'
