@@ -17,6 +17,7 @@ var bindListeners = function(){
   historyListener();
   addEntryListener();
   selectTimeframeListener();
+  modalListener();
 }
 
 var initializeDatepicker = function(){
@@ -35,6 +36,19 @@ var initializeDatepicker = function(){
   $('#datepicker-end').datepicker('update');
 }
 
+var modalListener = function(){
+  $('#about-click').on('click', function(e){
+    e.preventDefault();
+    $('#overlay').show();
+    $("body").addClass("modal-open");
+    $('#about-modal').fadeIn([2]);
+  });
+  $('#overlay').on('click', function(){
+    $('#about-modal').hide();
+      $("body").removeClass("modal-open")
+    $('#overlay').hide();
+  })
+}
 
 
 var historyModalListener = function(){

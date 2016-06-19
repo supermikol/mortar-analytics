@@ -10,9 +10,9 @@
   <div class="with-iconav">
 
     <nav class="iconav">
-      <a class="iconav-brand" href="/">
+      <div class="iconav-brand" href="/">
         <span class="icon icon-leaf iconav-brand-icon"></span>
-      </a>
+      </div>
       <div class="iconav-slider">
         <ul class="nav nav-pills iconav-nav">
           <% if @history_tab %>
@@ -21,7 +21,7 @@
             <li class="active">
           <% end %>
             <a href="/" class="navbar-icons" title="Overview" data-placement="right" data-container="body">
-              <span class="icon icon-home"></span>
+              <span class="icon icon-area-graph"></span>
               <small class="iconav-nav-label visible-xs-block">Overview</small>
             </a>
           </li>
@@ -36,26 +36,22 @@
             </a>
           </li>
           <li >
-            <a href="../fluid/index.html" class="navbar-icons" title="Fluid layout" data-placement="right" data-container="body">
+            <a href="/#" class="navbar-icons" title="Fluid layout" id="about-click" data-placement="right" data-container="body">
               <span class="icon icon-globe"></span>
-              <small class="iconav-nav-label visible-xs-block">Fluid layout</small>
-            </a>
-          </li>
-          <li>
-            <a href="../icon-nav/index.html" class="navbar-icons" title="Icon-nav layout" data-placement="right" data-container="body">
-              <span class="icon icon-area-graph"></span>
-              <small class="iconav-nav-label visible-xs-block">Icon nav</small>
-            </a>
-          </li>
-          <li >
-            <a href="../docs/index.html" class="navbar-icons" title="Docs" data-placement="right" data-container="body">
-              <span class="icon icon-list"></span>
-              <small class="iconav-nav-label visible-xs-block">Docs</small>
+              <small class="iconav-nav-label visible-xs-block">About</small>
             </a>
           </li>
         </ul>
       </div>
     </nav>
+      <div id="overlay"></div>
+    <div id="about-modal">
+      <h2 class="modal-title">About Mortar Analytics</h2>
+      <p>Welcome to Mortar Analytics! This is a CRM platform for business owners to easily submit and keep track of their business transactions.</p>
+      <p>To use, simply click on the <span class="icon icon-text-document"></span> icon on the left to access the invoice statement. Here you can add invoices, filter through existing invoices, and edit them. If an image of the invoice was attached to an invoice, you can view it by clicking on the invoice number.</p>
+      <p>The <span class="icon icon-area-graph"></span> link will take you to a stack chart that will display the revenue/expense trends for a given period. This chart will automatically update with the invoices that have been input in the system.</p>
+    </div>
+
     <div class="container">
     <%= yield %>
     </div>

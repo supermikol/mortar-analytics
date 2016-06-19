@@ -27,6 +27,32 @@ body {
   }
 }
 
+#overlay{
+  display:none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.7); /*dim the background*/
+}
+
+#about-modal {
+  overflow-y: scroll;
+  top: 20%;
+  left: 20%;
+  height: 60%;
+  width: 60%;
+  position:fixed;
+  display: none;
+  border-radius:8px;
+  background-color: white;
+  border: 2px solid grey;
+  z-index: 13;
+  padding: 3%;
+  color: $color5;
+}
 
 /* global spacing overrides */
 h1, h2, h3, h4, h5, h6,
